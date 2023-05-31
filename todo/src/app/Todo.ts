@@ -1,5 +1,5 @@
 export class Todo {
-  no: number | undefined;
+  _id: number | undefined;
   title: string | undefined;
-  desc: string | undefined;
+  description: string | undefined;
 }

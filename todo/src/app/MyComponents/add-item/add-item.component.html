@@ -1,0 +1,30 @@
+<p>add-item works!</p>
+
+<div>
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>Title</label>
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        name="title"
+        aria-describedby="emailHelp"
+        placeholder="Title"
+        [(ngModel)]="todoData.title"
+      />
+    </div>
+    <div class="form-group">
+      <label>Description</label>
+      <input
+        type="text"
+        class="form-control"
+        id="description"
+        name="description"
+        placeholder="description"
+        [(ngModel)]="todoData.description"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary">Add</button>
+  </form>
+</div>

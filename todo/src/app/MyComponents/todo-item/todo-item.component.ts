@@ -1,5 +1,8 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
+import { Component, Input } from '@angular/core';
+
 import { Todo } from 'src/app/Todo';
+import { TodoService } from 'src/app/todo-service.service';
 
 @Component({
   selector: 'app-todo-item',
@@ -7,13 +10,31 @@ import { Todo } from 'src/app/Todo';
   styleUrls: ['./todo-item.component.css'],
 })
 export class TodoItemComponent {
-  @Input() todo: Todo | undefined;
-  @Output() todoDelete: EventEmitter<Todo> = new EventEmitter();
+  todoData: Todo[] | undefined;
 
-  constructor() {}
+  constructor(private router: Router, private todoService: TodoService) {}
 
-  onClick(todo: Todo | undefined) {
-    this.todoDelete.emit(todo);
-    console.log('onclick---');
+  ngOnInit(): void {
+    this.getTodo();
+  }
+
+  private getTodo() {
+    this.todoService.getTodoList().subscribe((data) => {
+      this.todoData = data;
+    });
+  }
+
+  todoDetails(id: any) {
+    this.router.navigate(['todo-details', id]);
+  }
+
+  updateTodo(id: any) {
+    this.router.navigate(['update-todo', id]);
+  }
+
+  deleteTodo(id: any) {
+    this.todoService.deleteTodo(id).subscribe((data) => {
+      this.getTodo();
+    });
   }
 }

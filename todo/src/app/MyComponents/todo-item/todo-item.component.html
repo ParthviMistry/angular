@@ -1,11 +1,22 @@
-<p>todo-item works!</p>
-<div>
-  {{ todo?.no }}
-</div>
-<div>
-  {{ todo?.desc }}
-</div>
-<div>
-  {{ todo?.title }}
-</div>
-<button (click)="onClick(todo)">Delete</button>
+<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Id</th>
+      <th scope="col">Title</th>
+      <th scope="col">Description</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let i of todoData">
+      <td>{{ i._id }}</td>
+      <td>{{ i.title }}</td>
+      <td>{{ i.description }}</td>
+      <td>
+        <button (click)="updateTodo(i._id)" class="btn btn-primary">Edit</button>
+        <button (click)="deleteTodo(i._id)" class="btn btn-danger" style="margin-left: 10px">Delete</button>
+        <button (click)="todoDetails(i._id)" class="btn btn-primary" style="margin-left: 10px">View</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
