@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Signup, Todo } from './Todo';
+import { Signup, Todo } from './types';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 })
 export class TodoService {
   private baseURL = 'http://localhost:3001/api';
+
   isAuthenticate = new BehaviorSubject<boolean>(false);
 
   constructor(private httpClient: HttpClient, public route: Router) {}

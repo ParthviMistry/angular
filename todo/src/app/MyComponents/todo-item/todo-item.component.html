@@ -8,8 +8,8 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let i of todoData">
-      <td>{{ i._id }}</td>
+    <tr *ngFor="let i of todoData; let id = index">
+      <td>{{ id + 1 }}</td>
       <td>{{ i.title }}</td>
       <td>{{ i.description }}</td>
       <td>

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Signup } from 'src/app/Todo';
+import { Signup } from 'src/app/types';
 import { TodoService } from 'src/app/todo-service.service';
 
 @Component({
@@ -16,16 +16,19 @@ export class SignUpComponent {
   constructor(private fb: FormBuilder, private router: Router, private userService: TodoService) {}
 
   signupForm = this.fb.group({
-    name: ['', [Validators.required]],
-    email: ['', [Validators.required]],
-    password: ['', [Validators.required]],
-    state: [''],
-    city: [''],
-    zip: [''],
+    name: ['', [Validators.required, Validators.minLength(4)]],
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(6)]],
+    state: ['', [Validators.required]],
+    city: ['', [Validators.required]],
+    zip: ['', [Validators.required]],
   });
 
   onSubmit() {
     this.submitted = true;
-    return this.userService.createUser(this.signupData);
+    if (this.signupForm.valid) {
+      return this.userService.createUser(this.signupData);
+    }
+    return;
   }
 }

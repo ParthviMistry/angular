@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Todo } from '../../Todo';
+import { Todo } from '../../types';
 import { ActivatedRoute } from '@angular/router';
 import { TodoService } from '../../todo-service.service';
 
@@ -16,8 +16,8 @@ export class TodoDetailsComponent {
 
   ngOnInit(): void {
     this.id = this.route.snapshot.params['id'];
-
     this.todoData = new Todo();
+
     this.todoService.getTodoById(this.id).subscribe((data) => {
       this.todoData = data;
     });

@@ -8,7 +8,6 @@ import { AppComponent } from './app.component';
 import { TodoItemComponent } from './MyComponents/todo-item/todo-item.component';
 import { AddItemComponent } from './MyComponents/add-item/add-item.component';
 import { HomeComponent } from './MyComponents/home/home.component';
-import { EditModalComponent } from './MyComponents/edit-modal/edit-modal.component';
 import { TodoDetailsComponent } from './MyComponents/todo-details/todo-details.component';
 import { SignUpComponent } from './MyComponents/sign-up/sign-up.component';
 
@@ -18,7 +17,6 @@ import { SignUpComponent } from './MyComponents/sign-up/sign-up.component';
     TodoItemComponent,
     AddItemComponent,
     HomeComponent,
-    EditModalComponent,
     TodoDetailsComponent,
     SignUpComponent,
   ],

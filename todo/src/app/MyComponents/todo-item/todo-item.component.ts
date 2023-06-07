@@ -2,7 +2,7 @@ import { Router } from '@angular/router';
 import { Component, Input } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { Todo } from 'src/app/Todo';
+import { Todo } from 'src/app/types';
 import { TodoService } from 'src/app/todo-service.service';
 
 @Component({

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Todo } from 'src/app/Todo';
+import { Todo } from 'src/app/types';
 import { TodoService } from 'src/app/todo-service.service';
 
 @Component({
@@ -12,9 +12,9 @@ import { TodoService } from 'src/app/todo-service.service';
 })
 export class AddItemComponent {
   todoData: Todo = new Todo();
+  isAddMode: boolean | undefined;
   submitted = false;
   id: any;
-  isAddMode: boolean | undefined;
 
   constructor(
     private router: Router,
