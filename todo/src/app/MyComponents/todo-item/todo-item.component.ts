@@ -1,5 +1,6 @@
 import { Router } from '@angular/router';
 import { Component, Input } from '@angular/core';
+import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Todo } from 'src/app/Todo';
 import { TodoService } from 'src/app/todo-service.service';
@@ -11,8 +12,9 @@ import { TodoService } from 'src/app/todo-service.service';
 })
 export class TodoItemComponent {
   todoData: Todo[] | undefined;
+  deleteId: any;
 
-  constructor(private router: Router, private todoService: TodoService) {}
+  constructor(private router: Router, private todoService: TodoService, private modalService: NgbModal) {}
 
   ngOnInit(): void {
     this.getTodo();
@@ -29,12 +31,18 @@ export class TodoItemComponent {
   }
 
   updateTodo(id: any) {
-    this.router.navigate(['update-todo', id]);
+    this.router.navigate(['create-todo', id]);
   }
 
-  deleteTodo(id: any) {
-    this.todoService.deleteTodo(id).subscribe((data) => {
+  deleteTodo() {
+    this.todoService.deleteTodo(this.deleteId).subscribe((data) => {
       this.getTodo();
+      this.modalService.dismissAll();
     });
+  }
+
+  open(content: any, id: any) {
+    this.deleteId = id;
+    this.modalService.open(content, { ariaLabelledBy: 'delete-modal' });
   }
 }

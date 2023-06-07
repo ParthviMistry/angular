@@ -10,6 +10,7 @@ import { AddItemComponent } from './MyComponents/add-item/add-item.component';
 import { HomeComponent } from './MyComponents/home/home.component';
 import { EditModalComponent } from './MyComponents/edit-modal/edit-modal.component';
 import { TodoDetailsComponent } from './MyComponents/todo-details/todo-details.component';
+import { SignUpComponent } from './MyComponents/sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { TodoDetailsComponent } from './MyComponents/todo-details/todo-details.c
     HomeComponent,
     EditModalComponent,
     TodoDetailsComponent,
+    SignUpComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, FormsModule, HttpClientModule, ReactiveFormsModule],
   providers: [],

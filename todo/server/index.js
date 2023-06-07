@@ -18,7 +18,7 @@ mongoose
 
 const todoRouter = require('./route');
 
-app.use('/todo', todoRouter);
+app.use('/api', todoRouter);
 
 app.get('/', (req, res) => {
   try {

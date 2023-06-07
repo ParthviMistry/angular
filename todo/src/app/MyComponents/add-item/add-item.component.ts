@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Todo } from 'src/app/Todo';
 import { TodoService } from 'src/app/todo-service.service';
@@ -13,8 +13,29 @@ import { TodoService } from 'src/app/todo-service.service';
 export class AddItemComponent {
   todoData: Todo = new Todo();
   submitted = false;
+  id: any;
+  isAddMode: boolean | undefined;
 
-  constructor(private router: Router, private todoService: TodoService, public fb: FormBuilder) {}
+  constructor(
+    private router: Router,
+    private activeRoute: ActivatedRoute,
+    private todoService: TodoService,
+    public fb: FormBuilder
+  ) {}
+
+  ngOnInit(): void {
+    this.id = this.activeRoute.snapshot.params['id'];
+    this.isAddMode = !this.id;
+
+    if (!this.isAddMode) {
+      this.todoService.getTodoById(this.id).subscribe(
+        (data) => {
+          this.todoData = data;
+        },
+        (error) => console.log(error)
+      );
+    }
+  }
 
   todoForm = this.fb.group({
     title: ['', [Validators.required]],
@@ -40,12 +61,16 @@ export class AddItemComponent {
   onSubmit() {
     this.submitted = true;
     if (this.todoForm.valid) {
-      return this.todoService.createTodo(this.todoData).subscribe(
-        (data) => {
-          this.router.navigate(['/todo']);
-        },
-        (error) => console.log(error)
-      );
+      if (this.isAddMode) {
+        return this.todoService.createTodo(this.todoData);
+      } else {
+        return this.todoService.updateTodo(this.id, this.todoData).subscribe(
+          (data) => {
+            this.router.navigate(['/todo']);
+          },
+          (error) => console.log(error)
+        );
+      }
     } else {
       return false;
     }
