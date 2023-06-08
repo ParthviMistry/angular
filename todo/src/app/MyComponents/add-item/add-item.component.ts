@@ -3,7 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Todo } from 'src/app/types';
-import { TodoService } from 'src/app/todo-service.service';
+import { ApiService } from 'src/app/api-service.service';
 
 @Component({
   selector: 'app-add-item',
@@ -19,7 +19,7 @@ export class AddItemComponent {
   constructor(
     private router: Router,
     private activeRoute: ActivatedRoute,
-    private todoService: TodoService,
+    private apiService: ApiService,
     public fb: FormBuilder
   ) {}
 
@@ -28,7 +28,7 @@ export class AddItemComponent {
     this.isAddMode = !this.id;
 
     if (!this.isAddMode) {
-      this.todoService.getTodoById(this.id).subscribe(
+      this.apiService.getTodoById(this.id).subscribe(
         (data) => {
           this.todoData = data;
         },
@@ -62,9 +62,9 @@ export class AddItemComponent {
     this.submitted = true;
     if (this.todoForm.valid) {
       if (this.isAddMode) {
-        return this.todoService.createTodo(this.todoData);
+        return this.apiService.createTodo(this.todoData);
       } else {
-        return this.todoService.updateTodo(this.id, this.todoData).subscribe(
+        return this.apiService.updateTodo(this.id, this.todoData).subscribe(
           (data) => {
             this.router.navigate(['/todo']);
           },

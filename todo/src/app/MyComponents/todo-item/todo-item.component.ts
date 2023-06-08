@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { Todo } from 'src/app/types';
-import { TodoService } from 'src/app/todo-service.service';
+import { ApiService } from 'src/app/api-service.service';
 
 @Component({
   selector: 'app-todo-item',
@@ -14,14 +14,14 @@ export class TodoItemComponent {
   todoData: Todo[] | undefined;
   deleteId: any;
 
-  constructor(private router: Router, private todoService: TodoService, private modalService: NgbModal) {}
+  constructor(private router: Router, private apiService: ApiService, private modalService: NgbModal) {}
 
   ngOnInit(): void {
     this.getTodo();
   }
 
   private getTodo() {
-    this.todoService.getTodoList().subscribe((data) => {
+    this.apiService.getTodoList().subscribe((data) => {
       this.todoData = data;
     });
   }
@@ -35,7 +35,7 @@ export class TodoItemComponent {
   }
 
   deleteTodo() {
-    this.todoService.deleteTodo(this.deleteId).subscribe((data) => {
+    this.apiService.deleteTodo(this.deleteId).subscribe((data) => {
       this.getTodo();
       this.modalService.dismissAll();
     });

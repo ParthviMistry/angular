@@ -1,33 +1,26 @@
-import { CanActivateFn } from '@angular/router';
-import { TodoService } from './todo-service.service';
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { Injectable } from '@angular/core';
 
-export const authGuardGuard: CanActivateFn = (route, state) => {
-  if (TodoService) {
-    return true;
-  } else {
-    return false;
+import { ApiService } from './api-service.service';
+import { Observable } from 'rxjs';
+
+@Injectable({ providedIn: 'root' })
+export class AuthGuard implements CanActivate {
+  constructor(private router: Router, private apiService: ApiService) {}
+
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    const user = this.apiService.isAuthenticate;
+
+    if (user) {
+      // authorised so return true
+      return true;
+    } else {
+      // not logged in so redirect to login page with the return url
+      this.router.navigate(['/'], { queryParams: { returnUrl: state.url } });
+      return false;
+    }
   }
-};
-
-// import { Injectable } from '@angular/core';
-// import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
-// import { Observable } from 'rxjs';
-// import { TodoService } from './todo-service.service';
-
-// @Injectable({
-//   providedIn: 'root',
-// })
-// export class authGuardGuard implements CanActivateFn {
-//   constructor(private authService: TodoService) {}
-
-//   canActivate(
-//     next: ActivatedRouteSnapshot,
-//     state: RouterStateSnapshot
-//   ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-//     if (this.authService.isAuthenticate) {
-//       return true;
-//     } else {
-//       return false;
-//     }
-//   }
-// }
+}
